@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import axios from 'axios'
+import axios from 'axios';
+import Card from './Card';
+
+
 class PostList extends Component{
     constructor(props){
         super(props);
@@ -8,21 +11,19 @@ class PostList extends Component{
             posts:[]
           }
     }
-
     componentDidMount(){
         axios.get('https://jsonplaceholder.typicode.com/posts')
         .then(response=>{
           this.setState({posts:response.data})
-        })
-        const postslist= this.state.posts.map((post,i)=>{
-            return <li key={i}>{post.title} </li>
-          })
+        }) 
       }
-
       render(){
-        
+        const postslist= this.state.posts.map((post,i)=>{
+            return <Card key={i} postTitle={post.title}> </Card>
+          })
           return(
-              <div>{this.postslist}</div>
+              <div>
+              <ul>{postslist}</ul></div>
           )
       }
 }
